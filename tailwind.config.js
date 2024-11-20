@@ -12,6 +12,9 @@ export default {
           '100%': { opacity: '1' },
         },
       },
+      colors: {
+        screenBlack: '#010101',
+      },
     },
   },
   plugins: [],

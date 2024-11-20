@@ -17,6 +17,9 @@ const VideoStory: React.FC<VideoStoryProps> = ({
   const [muted, setMuted] = useState(true);
   useStoryProgress(storyIndex, duration, 'loaded', onComplete);
 
+  // Not making much changes here as assignment primarily focuses on image as stores.
+  // But this can be used as an example and can be enchanced to increase the feature parity
+
   return (
     <div className="relative h-full w-full animate-fade-in">
       <video

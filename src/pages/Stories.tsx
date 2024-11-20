@@ -1,4 +1,4 @@
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import ProgressBarList from '../components/ProgressBarList';
 import { routes } from '../constants';
@@ -9,6 +9,7 @@ import StoriesView from '../views/StoriesView';
 const Stories = () => {
   const [params] = useSearchParams();
   const userId = params.get('userId');
+  const navigate = useNavigate();
 
   const { loading, error, status } = useStoriesData(userId);
 
@@ -24,10 +25,14 @@ const Stories = () => {
     return <div>Error: {error}</div>;
   }
 
+  const onAllStoriesViewed = () => {
+    navigate(routes.stories);
+  };
+
   return (
     <div className="m-auto w-full h-screen relative">
       <StoriesProvider initialStories={status.stories}>
-        <StoriesView />
+        <StoriesView onAllStoriesViewed={onAllStoriesViewed} status={status} />
         <ProgressBarList />
       </StoriesProvider>
     </div>

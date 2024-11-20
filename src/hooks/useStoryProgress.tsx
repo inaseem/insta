@@ -8,24 +8,49 @@ const useStoryProgress = (
   onComplete: () => void
 ) => {
   const { updateStoryProgress } = useStories();
+  const [isPaused, setIsPaused] = React.useState(false);
+  const progressRef = React.useRef(0);
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  const pause = React.useCallback(() => {
+    setIsPaused(true);
+  }, []);
+
+  const resume = React.useCallback(() => {
+    setIsPaused(false);
+  }, []);
 
   React.useEffect(() => {
     if (status === 'loading' || status === 'error') return;
-    let progress = 0;
-    updateStoryProgress(storyIndex, 0); // Reset progress
+    progressRef.current = 0;
+  }, [storyIndex]);
 
-    const interval = setInterval(() => {
-      progress += (100 / duration) * 50;
-      updateStoryProgress(storyIndex, progress);
+  React.useEffect(() => {
+    if (status === 'loading' || status === 'error') return;
 
-      if (progress >= 100) {
-        clearInterval(interval);
-        onComplete();
+    progressRef.current = progressRef.current ?? 0;
+    updateStoryProgress(storyIndex, progressRef.current);
+
+    intervalRef.current = setInterval(() => {
+      if (!isPaused) {
+        progressRef.current += (100 / duration) * 50;
+        updateStoryProgress(storyIndex, progressRef.current);
+
+        if (progressRef.current >= 100) {
+          clearInterval(intervalRef.current!);
+          onComplete();
+        }
       }
     }, 50);
 
-    return () => clearInterval(interval);
-  }, [storyIndex, duration, status, onComplete, updateStoryProgress]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [storyIndex, duration, status, onComplete, updateStoryProgress, isPaused]);
+
+  return { pause, resume, isPaused };
 };
 
 export default useStoryProgress;

@@ -21,7 +21,7 @@ const StatusItem: React.FC<StatusItemProps> = ({ status, onClick }) => {
           src={status.stories[0].src}
         />
       </StatusContainer>
-      <h2 className="text-xs">{status.name}</h2>
+      <h2 className="text-xs text-gray-200">{status.name}</h2>
     </div>
   );
 };

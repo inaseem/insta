@@ -1,13 +1,15 @@
 import React from 'react';
-import { useStories } from '../providers/StoriesContext';
 import PhotoStory from '../components/PhotoStory';
 import VideoStory from '../components/VideoStory';
+import { useStories } from '../providers/StoriesContext';
+import { Status } from '../types';
 
 interface StoriesViewProps {
   onAllStoriesViewed?: () => void;
+  status: Status;
 }
 
-const StoriesView = ({ onAllStoriesViewed }: StoriesViewProps) => {
+const StoriesView = ({ onAllStoriesViewed, status }: StoriesViewProps) => {
   const {
     stories,
     activeStoryIndex,
@@ -44,7 +46,7 @@ const StoriesView = ({ onAllStoriesViewed }: StoriesViewProps) => {
   return (
     <div
       ref={containerRef}
-      className="relative h-full bg-black"
+      className="relative h-full bg-screenBlack"
       onClick={(e) => {
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
@@ -57,6 +59,7 @@ const StoriesView = ({ onAllStoriesViewed }: StoriesViewProps) => {
       <div className="relative h-full w-full">
         {activeStory.type === 'photo' && (
           <PhotoStory
+            status={status}
             src={activeStory.src}
             storyIndex={activeStoryIndex}
             duration={activeStory.duration}
