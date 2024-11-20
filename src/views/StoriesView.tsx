@@ -68,6 +68,7 @@ const StoriesView = ({ onAllStoriesViewed, status }: StoriesViewProps) => {
         )}
         {activeStory.type === 'video' && (
           <VideoStory
+            status={status}
             src={activeStory.src}
             storyIndex={activeStoryIndex}
             duration={activeStory.duration}

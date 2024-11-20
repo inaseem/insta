@@ -49,11 +49,12 @@ const PhotoStory: React.FC<PhotoStoryProps> = ({
   };
   const handleMenuClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    // Ideally, this should some sort of menu for the user to take an action.
+    // Meanwhile the menu is open, we need to pause the story from progressing.
+    // The code below can be called based on the menu close and open events
     if (isPaused) resume();
     else pause();
   };
-
-  console.log({ isPaused });
 
   return (
     <div className="relative w-full h-full">
