@@ -18,8 +18,14 @@ interface StoriesState {
 
 const StoriesContext = createContext<StoriesState | undefined>(undefined);
 
-export const StoriesProvider = ({ children }: { children: ReactNode }) => {
-  const [stories, setStoriesInternal] = useState<Story[]>([]);
+export const StoriesProvider = ({
+  children,
+  initialStories,
+}: {
+  children: ReactNode;
+  initialStories: Story[];
+}) => {
+  const [stories, setStoriesInternal] = useState<Story[]>(initialStories);
   const [activeStoryIndex, setActiveStoryIndex] = useState<number>(0);
 
   const setStories = useCallback((newStories: Story[]) => {

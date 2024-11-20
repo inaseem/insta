@@ -1,6 +1,7 @@
 import React from 'react';
 import useImageLoader from '../hooks/useImageLoder';
 import useStoryProgress from '../hooks/useStoryProgress';
+import Loader from './Loader';
 
 type PhotoStoryProps = {
   src: string;
@@ -27,11 +28,7 @@ const PhotoStory: React.FC<PhotoStoryProps> = ({
   }
 
   if (status === 'loading') {
-    return (
-      <div className="flex items-center justify-center h-full w-full bg-black">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-white"></div>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (

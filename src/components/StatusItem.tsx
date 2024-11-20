@@ -2,12 +2,18 @@ import React from 'react';
 import { Status } from '../types';
 import StatusContainer from './StatusIconContainer';
 
-const StatusItem: React.FC<{ status: Status }> = ({ status }) => {
+interface StatusItemProps {
+  status: Status;
+  onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+}
+
+const StatusItem: React.FC<StatusItemProps> = ({ status, onClick }) => {
   return (
     <div
       className="flex flex-col items-center gap-1 hover:opacity-90"
       role="button"
       key={status.id}
+      onClick={onClick}
     >
       <StatusContainer key={status.id}>
         <img

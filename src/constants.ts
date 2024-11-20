@@ -83,3 +83,8 @@ export const statusList = [
     stories: mockStories,
   },
 ] as Status[];
+
+export const routes = {
+  home: '/',
+  stories: '/stories',
+};
