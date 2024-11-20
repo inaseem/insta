@@ -64,8 +64,8 @@ const StoriesView = ({ onAllStoriesViewed, status }: StoriesViewProps) => {
         )}
       </div>
       <div className="absolute bottom-0 left-0 flex w-full h-4/5 justify-between [&>button]:h-full [&>button]:w-1/2">
-        <button aria-label="Previous" onClick={movePrevious} />
-        <button aria-label="Next" onClick={moveNext} />
+        <button aria-label="Previous Story" onClick={movePrevious} />
+        <button aria-label="Next Story" onClick={moveNext} />
       </div>
     </div>
   );

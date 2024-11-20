@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/dom';
+import { fireEvent, screen, waitFor } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
@@ -26,18 +26,18 @@ const status = {
       id: '1',
       type: 'photo',
       src: 'https://www.stage.in/_next/image?url=https://media.stage.in/show/vertical/small/showImage-1723012728745.jpg&w=384&q=75',
-      duration: 5000,
+      duration: 1000,
     },
     {
       id: '2',
       type: 'photo',
       src: 'https://www.stage.in/_next/image?url=https://media.stage.in/show/vertical/small/showImage-1696930317030.jpg&w=256&q=75',
-      duration: 5000,
+      duration: 1000,
     },
   ],
 } as Status;
 
-const initApp = () => {
+const initApp = (onAllStoriesViewed = vi.fn()) => {
   renderApp(
     <BrowserRouter basename="/">
       <Routes>
@@ -45,7 +45,10 @@ const initApp = () => {
           path="/"
           element={
             <StoriesProvider initialStories={status.stories}>
-              <StoriesView status={status} />
+              <StoriesView
+                status={status}
+                onAllStoriesViewed={onAllStoriesViewed}
+              />
             </StoriesProvider>
           }
         />
@@ -75,7 +78,7 @@ describe('StoriesView', () => {
     expect(storyImage).toBe(status.stories[0].src);
   });
 
-  it('clicking Next takes the user to next story', async () => {
+  it('clicking Next Story takes the user to next story', async () => {
     initApp();
 
     expect(useImageLoader).toHaveBeenCalled();
@@ -86,7 +89,7 @@ describe('StoriesView', () => {
         name: 'Story',
       })
     ).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Next Story' }));
     expect(
       await screen.findByRole('img', {
         name: 'Story',
@@ -100,7 +103,7 @@ describe('StoriesView', () => {
     expect(storyImage).toBe(status.stories[1].src);
   });
 
-  it('clicking Previous takes the user to previous story', async () => {
+  it('clicking Previous Story takes the user to previous story', async () => {
     initApp();
 
     expect(useImageLoader).toHaveBeenCalled();
@@ -111,7 +114,7 @@ describe('StoriesView', () => {
         name: 'Story',
       })
     ).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Next Story' }));
     // Assert that 2nd story is visible
     expect(
       await screen.findByRole('img', {
@@ -119,7 +122,7 @@ describe('StoriesView', () => {
       })
     ).toBeVisible();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Previous' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Previous Story' }));
     // Assert that 2nd story is visible
     expect(
       await screen.findByRole('img', {
@@ -133,4 +136,22 @@ describe('StoriesView', () => {
       .getAttribute('src');
     expect(storyImage).toBe(status.stories[0].src);
   });
+
+  it(
+    'should fire onAllStoriesViewed callback when all stories are viewed',
+    { timeout: 5000 },
+    async () => {
+      const onAllStoriesViewed = vi.fn();
+      initApp(onAllStoriesViewed);
+
+      expect(useImageLoader).toHaveBeenCalled();
+
+      await waitFor(
+        () => {
+          expect(onAllStoriesViewed).toHaveBeenCalledOnce();
+        },
+        { timeout: 5000 }
+      );
+    }
+  );
 });
