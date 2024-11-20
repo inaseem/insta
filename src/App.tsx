@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import ProgressBarList from './components/ProgressBarList';
-import StoryViewer from './components/StoryViewer';
-import { mockStories } from './constants';
+import StoriesView from './views/StoriesView';
+import { mockStories, statusList } from './constants';
 import { StoriesProvider, useStories } from './providers/StoriesContext';
+import StatusContainer from './components/StatusIconContainer';
+import StatusItem from './components/StatusItem';
 
 const MockDataLoader = () => {
   const { setActiveStoryIndex, stories, setStories } = useStories();
@@ -20,14 +22,22 @@ const MockDataLoader = () => {
 
 const App = () => {
   return (
-    <div className="flex">
-      <div className="m-auto w-full h-screen relative">
+    <div>
+      <div className="p-3">
+        <h1 className="font-sans font-semibold text-4xl">On stage</h1>
+        <div className="flex gap-2 overflow-x-auto py-3 no-s">
+          {statusList.map((status) => (
+            <StatusItem status={status} key={status.id} />
+          ))}
+        </div>
+      </div>
+      {/* <div className="m-auto w-full h-screen relative">
         <StoriesProvider>
           <MockDataLoader />
-          <StoryViewer />
+          <StoriesView />
           <ProgressBarList />
         </StoriesProvider>
-      </div>
+      </div> */}
     </div>
   );
 };

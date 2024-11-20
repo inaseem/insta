@@ -1,4 +1,4 @@
-import { Story } from './types';
+import { Status, Story } from './types';
 
 export const mockStories = [
   {
@@ -38,3 +38,48 @@ export const mockStories = [
     duration: 5000,
   },
 ] as Story[];
+
+export const statusList = [
+  {
+    id: '1',
+    name: 'Aarav',
+    handle: '@aarav',
+    stories: mockStories,
+  },
+  {
+    id: '2',
+    name: 'Bhavna',
+    handle: '@bhavna',
+    stories: mockStories,
+  },
+  {
+    id: '3',
+    name: 'Chirag',
+    handle: '@chirag',
+    stories: mockStories,
+  },
+  {
+    id: '4',
+    name: 'Deepa',
+    handle: '@deepa',
+    stories: mockStories,
+  },
+  {
+    id: '5',
+    name: 'Esha',
+    handle: '@esha',
+    stories: mockStories,
+  },
+  {
+    id: '6',
+    name: 'Farhan',
+    handle: '@farhan',
+    stories: mockStories,
+  },
+  {
+    id: '7',
+    name: 'Gauri',
+    handle: '@gauri',
+    stories: mockStories,
+  },
+] as Status[];

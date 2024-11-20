@@ -27,6 +27,7 @@ const VideoStory: React.FC<VideoStoryProps> = ({
       />
       {/* Mute/Unmute Toggle */}
       <button
+        aria-label="Toggle audio"
         onClick={(e) => {
           e.stopPropagation();
           setMuted((prev) => !prev);

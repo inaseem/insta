@@ -1,13 +1,13 @@
 import React from 'react';
 import { useStories } from '../providers/StoriesContext';
-import PhotoStory from './PhotoStory';
-import VideoStory from './VideoStory';
+import PhotoStory from '../components/PhotoStory';
+import VideoStory from '../components/VideoStory';
 
-interface StoryViewerProps {
+interface StoriesViewProps {
   onAllStoriesViewed?: () => void;
 }
 
-const StoryViewer = ({ onAllStoriesViewed }: StoryViewerProps) => {
+const StoriesView = ({ onAllStoriesViewed }: StoriesViewProps) => {
   const {
     stories,
     activeStoryIndex,
@@ -76,4 +76,4 @@ const StoryViewer = ({ onAllStoriesViewed }: StoryViewerProps) => {
   );
 };
 
-export default StoryViewer;
+export default StoriesView;
