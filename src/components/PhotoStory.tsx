@@ -57,13 +57,14 @@ const PhotoStory: React.FC<PhotoStoryProps> = ({
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full" data-testid={storyIndex}>
       <PhotoStoryHeader
         status={status}
         onClickMenu={handleMenuClick}
         onClose={handleCloseClick}
       />
       <img
+        aria-label="Story"
         src={src}
         alt="Story"
         className="object-cover w-full h-full animate-fade-in"

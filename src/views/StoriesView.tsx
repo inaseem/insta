@@ -17,8 +17,6 @@ const StoriesView = ({ onAllStoriesViewed, status }: StoriesViewProps) => {
     updateStoryProgress,
   } = useStories();
 
-  const containerRef = React.useRef<HTMLDivElement>(null);
-
   const activeStory = stories[activeStoryIndex];
 
   // Move to the next story
@@ -44,18 +42,7 @@ const StoriesView = ({ onAllStoriesViewed, status }: StoriesViewProps) => {
   if (!activeStory) return null;
 
   return (
-    <div
-      ref={containerRef}
-      className="relative h-full bg-screenBlack"
-      onClick={(e) => {
-        if (!containerRef.current) return;
-        const rect = containerRef.current.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-
-        if (clickX < rect.width / 2) movePrevious();
-        else moveNext();
-      }}
-    >
+    <div className="relative h-full bg-screenBlack">
       <div className="relative h-full w-full">
         {activeStory.type === 'photo' && (
           <PhotoStory
@@ -75,6 +62,10 @@ const StoriesView = ({ onAllStoriesViewed, status }: StoriesViewProps) => {
             onComplete={moveNext}
           />
         )}
+      </div>
+      <div className="absolute bottom-0 left-0 flex w-full h-4/5 justify-between [&>button]:h-full [&>button]:w-1/2">
+        <button aria-label="Previous" onClick={movePrevious} />
+        <button aria-label="Next" onClick={moveNext} />
       </div>
     </div>
   );

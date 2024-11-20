@@ -10,11 +10,12 @@ export default defineConfig(({ mode }) => ({
     environment: 'jsdom',
     globals: true,
     setupFiles: './testSetup.js',
+    dir: './src',
   },
   build: {
     sourcemap: mode === 'production',
   },
   server: {
-    open: true
+    open: true,
   },
 }));
