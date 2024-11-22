@@ -25,12 +25,14 @@ describe('PhotoStoryHeader', () => {
       />
     );
 
+    // Assert that the right name is rendered in the header
     expect(
       screen.getByRole('heading', {
         name: status.name,
       })
     ).toBeVisible();
 
+    // Assert that the right handle is rendered in the header
     expect(
       screen.getByRole('heading', {
         name: status.handle,

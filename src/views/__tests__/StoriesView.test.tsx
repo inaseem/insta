@@ -75,6 +75,8 @@ describe('StoriesView', () => {
         name: 'Story',
       })
       .getAttribute('src');
+
+    // Assert that the first story image is loaded
     expect(storyImage).toBe(status.stories[0].src);
   });
 
@@ -89,17 +91,22 @@ describe('StoriesView', () => {
         name: 'Story',
       })
     ).toBeVisible();
+
+    // Clicking Next Story button
     fireEvent.click(screen.getByRole('button', { name: 'Next Story' }));
+
     expect(
       await screen.findByRole('img', {
         name: 'Story',
       })
     ).toBeVisible();
+
     const storyImage = screen
       .getByRole('img', {
         name: 'Story',
       })
       .getAttribute('src');
+    // Assert that the 2nd(index 1) story image is loaded
     expect(storyImage).toBe(status.stories[1].src);
   });
 
@@ -114,7 +121,10 @@ describe('StoriesView', () => {
         name: 'Story',
       })
     ).toBeVisible();
+
+    // Clicking Next story button
     fireEvent.click(screen.getByRole('button', { name: 'Next Story' }));
+
     // Assert that 2nd story is visible
     expect(
       await screen.findByRole('img', {
@@ -122,18 +132,21 @@ describe('StoriesView', () => {
       })
     ).toBeVisible();
 
+    // Clicking Previous story button
     fireEvent.click(screen.getByRole('button', { name: 'Previous Story' }));
-    // Assert that 2nd story is visible
+
     expect(
       await screen.findByRole('img', {
         name: 'Story',
       })
     ).toBeVisible();
+
     const storyImage = screen
       .getByRole('img', {
         name: 'Story',
       })
       .getAttribute('src');
+    // Assert that the 1st(index 0) story is visible
     expect(storyImage).toBe(status.stories[0].src);
   });
 
