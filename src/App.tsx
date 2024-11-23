@@ -1,9 +1,12 @@
-function App() {
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
+
+const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <AppRoutes />
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
